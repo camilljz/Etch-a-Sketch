@@ -3,3 +3,17 @@
     background-color: white;
 }
 
+button {
+    margin: 3;
+    display: block;
+    place-content: center;
+    padding: 10px;
+    background-color: lab(52.21% -30.62 -9);
+    border: 0px;
+
+}
+
+button:hover {
+    background-color: rgb(2, 203, 203);
+    box-shadow:  2px 3px 7px rgb(2, 104, 104);
+}

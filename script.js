@@ -81,9 +81,13 @@ container.style.margin = '0px'
 container.style.padding = '0px'
 
 function change(box) {
-    let opacity = parseFloat(box.style.opacity) || 1
-    let change = Math.max(0, opacity-0.1)
-    box.style.opacity = change.toString()
+    let opacity = parseFloat(box.style.opacity)
+
+    if (opacity > 0) {
+        let change = Math.max(0, opacity-0.1)
+        box.style.opacity = change.toString()
+    }
+    
 }
 
 const allBoxes = document.querySelectorAll('.boxes')

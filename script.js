@@ -1,48 +1,82 @@
-const buttonWrap = document.createElement('div')
-document.body.appendChild(buttonWrap)
-const container = document.createElement('div')
-document.body.appendChild(container)
+/*Creating the outside element wrapping the button and the sketch-area*/
+const outside = document.createElement('div')
+document.body.appendChild(outside)
+outside.setAttribute('id', 'outside')
+outside.style.display = 'flex'
+outside.style.flexDirection = 'column'
+outside.style.alignContent = 'space-around'
+/*Dynamically changes the height when the window is resized*/
+function setHeight() {
+    const height = window.innerHeight;
+    document.documentElement.style.setProperty('--real-vh', `${height}px`)
+}
+window.addEventListener('resize', setHeight)
+setHeight();
 
-document.body.style.margin = '0px'
-document.body.style.padding = '0px'
+const title = document.createElement('h1')
+outside.append(title)
+
+const buttonWrap = document.createElement('div')
+outside.append(buttonWrap)
+buttonWrap.style.display = 'flex'
 const button = document.createElement('button')
 buttonWrap.append(button)
-buttonWrap.style.display = 'flex'
-buttonWrap.style.justifyContent = 'center'
-buttonWrap.style.backgroundColor = 'lightblue'
-buttonWrap.style.padding = '15px 0 0 0'
+
+
+const container = document.createElement('div')
+outside.appendChild(container)
+container.style.display = 'flex'
+container.style.flexWrap = 'wrap'
+outside.style.justifyContent = 'center'
+outside.style.alignItems = 'center'
+outside.style.alignSelf = 'center'
+
+title.textContent = 'Etch-a-Sketch'
+title.style.margin = '0 0 20px 0'
+title.setAttribute('id', 'title')
+
 button.textContent = 'Change Grid'
 button.style.fontFamily = 'Courier New'
 button.style.fontWeight = '1000'
 button.style.fontSize = '25px'
 
-
-
+buttonWrap.style.margin = '0 0 20px 0'
 
 for (i = 0; i<16*16; i++) {
     const box  = document.createElement('div')
     box.className = "boxes"
     container.appendChild(box)
-    
 }
 
 const boxes = document.querySelectorAll('.boxes')
 
-let width = (100/16)
+
+let height = outside.clientHeight - button.clientHeight
+let width = outside.clientWidth 
+const size = Math.floor(Math.min(width, height) / 16)
+const containerWidth = width/2
+const containerHeight = height/1.5
+
+container.style.width = `${containerWidth}px`
+container.style.height = `${containerHeight}px`
+container.style.border = 'black dotted 1.5px'
+
+button.style.fontSize = `${containerWidth/28}px`
+button.style.width = `${containerWidth/3}px`
+
 boxes.forEach (box => {
     box.style.backgroundColor = 'lightblue'
-    box.style.width = width+'%'
-    box.style['aspectRatio'] ='1/1'
+    box.style.width = `${containerWidth/16}px`;
+    box.style.height = `${containerHeight/16}px`;
     box.style['display'] = 'flex'
     box.style.boxSizing = 'border-box'
-    box.style.margin = '0px'
+    box.style.margin = '0'
     box.style.padding = '0px'
     box.style.opacity = '1'
     
 })
 
-container.style['display'] = 'flex'
-container.style['flex-wrap'] = 'wrap'
+
 container.style.margin = '0px'
 container.style.padding = '0px'
 
@@ -76,7 +110,8 @@ button.addEventListener("click", (e) => {
 
         boxes.forEach (box => {
             box.style.backgroundColor = 'lightblue'
-            box.style.width = width+'%'
+            box.style.width = `${containerWidth/boxwish}px`;
+            box.style.height = `${containerHeight/boxwish}px`;
             box.style.aspectRatio = '1/1'
             box.style.boxSizing = 'border-box'
             box.style.margin = '0px'
